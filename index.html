@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini App Example</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Привет из Mini App!</h1>
+  <p id="user-info">Загрузка данных...</p>
+  <button id="send-data-btn">Отправить данные в бота</button>
+
+  <script>
+    // Инициализация Telegram Web App
+    const tg = window.Telegram.WebApp;
+
+    // Получение данных пользователя
+    const user = tg.initDataUnsafe.user;
+    if (user) {
+      document.getElementById('user-info').innerText = `Привет, ${user.first_name}!`;
+    } else {
+      document.getElementById('user-info').innerText = 'Не удалось получить данные пользователя.';
+    }
+
+    // Отправка данных в бота
+    document.getElementById('send-data-btn').addEventListener('click', () => {
+      const data = "Hello from Mini App!";
+      tg.sendData(data); // Отправляем данные в бота
+    });
+
+    // Уведомляем Telegram, что приложение готово
+    tg.ready();
+  </script>
+</body>
+</html>
